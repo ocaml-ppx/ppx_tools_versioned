@@ -122,7 +122,7 @@ module Main : sig end = struct
   let exp_lifter loc map =
     let map = map.Ast_mapper.expr map in
     object
-      inherit [_] Ast_lifter.lifter as super
+      inherit [_] Ast_lifter_403.lifter as super
       inherit exp_builder
 
       (* Special support for location in the generated AST *)
@@ -145,7 +145,7 @@ module Main : sig end = struct
   let pat_lifter map =
     let map = map.Ast_mapper.pat map in
     object
-      inherit [_] Ast_lifter.lifter as super
+      inherit [_] Ast_lifter_403.lifter as super
       inherit pat_builder
 
       (* Special support for location and attributes in the generated AST *)
@@ -179,7 +179,7 @@ module Main : sig end = struct
     loc := old_loc;
     r
 
-  let expander _args =
+  let expander =
     let open Ast_mapper in
     let super = default_mapper in
     let expr this e =
@@ -230,5 +230,12 @@ module Main : sig end = struct
     in
     {super with expr; pat; structure; structure_item}
 
-  let () = Ast_mapper.run_main expander
+  let expander =
+    let open Migrate_parsetree in
+    let module To_current = Convert(OCaml_403)(OCaml_current) in
+    To_current.copy_mapper expander
+
+  let () =
+    Migrate_parsetree.Compiler_libs.Ast_mapper.run_main @@
+    fun _args -> expander
 end
