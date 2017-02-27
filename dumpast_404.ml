@@ -1,3 +1,5 @@
+open Ast_404
+
 (*  This file is part of the ppx_tools package.  It is released  *)
 (*  under the terms of the MIT license (see LICENSE file).       *)
 (*  Copyright 2013  Alain Frisch and LexiFi                      *)

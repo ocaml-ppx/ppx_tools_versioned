@@ -1,3 +1,5 @@
+open Ast_402
+
 (*  This file is part of the ppx_tools package.  It is released  *)
 (*  under the terms of the MIT license (see LICENSE file).       *)
 (*  Copyright 2014  Peter Zotov                                  *)
@@ -92,13 +94,13 @@ let () =
         | `Struct ->
             let pstr = Parse.implementation lexer in
             let pstr = Pparse.apply_rewriters (* ~restore:true *) ~tool_name:!tool_name
-                Pparse.Structure pstr in
+                Config.ast_impl_magic_number pstr in
             Pprintast.structure fmt pstr;
             Format.pp_print_newline fmt ()
         | `Sig ->
             let psig = Parse.interface lexer in
             let psig = Pparse.apply_rewriters (* ~restore:true *) ~tool_name:!tool_name
-                Pparse.Signature psig in
+                Config.ast_intf_magic_number psig in
             Pprintast.signature fmt psig;
             Format.pp_print_newline fmt ())
   with exn ->

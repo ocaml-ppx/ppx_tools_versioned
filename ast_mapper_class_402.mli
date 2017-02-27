@@ -1,3 +1,5 @@
+open Ast_402
+
 (*  This file is part of the ppx_tools package.  It is released  *)
 (*  under the terms of the MIT license (see LICENSE file).       *)
 (*  Copyright 2013  Alain Frisch and LexiFi                      *)
@@ -21,7 +23,6 @@ class mapper:
     method class_type: class_type -> class_type
     method class_type_declaration: class_type_declaration -> class_type_declaration
     method class_type_field: class_type_field -> class_type_field
-    method constructor_arguments: constructor_arguments -> constructor_arguments
     method constructor_declaration: constructor_declaration -> constructor_declaration
     method expr: expression -> expression
     method extension: extension -> extension

@@ -1,3 +1,5 @@
+open Ast_402
+
 (*  This file is part of the ppx_tools package.  It is released  *)
 (*  under the terms of the MIT license (see LICENSE file).       *)
 (*  Copyright 2013  Alain Frisch and LexiFi                      *)
@@ -10,33 +12,66 @@ open Ast_helper
 
 module Label = struct
 
-  type t = Asttypes.arg_label
+  type t = string
 
-  type desc = Asttypes.arg_label =
+  type desc =
       Nolabel
     | Labelled of string
     | Optional of string
 
-  let explode x = x
+  let explode s =
+    if s = "" then Nolabel
+    else if s.[0] = '?' then Optional (String.sub s 1 (String.length s - 1))
+    else Labelled s
 
-  let nolabel = Nolabel
-  let labelled x = Labelled x
-  let optional x = Optional x
+  let nolabel = ""
+  let labelled s = s
+  let optional s = "?"^s
 
 end
 
-module Constant = struct 
-  type t = Parsetree.constant =
-     Pconst_integer of string * char option 
-   | Pconst_char of char 
-   | Pconst_string of string * string option 
-   | Pconst_float of string * char option 
+module Constant = struct
+  type t =
+     Pconst_integer of string * char option
+   | Pconst_char of char
+   | Pconst_string of string * string option
+   | Pconst_float of string * char option
 
-  let of_constant x = x 
+  exception Unknown_literal of string * char
 
-  let to_constant x = x
+  (** Backport Int_literal_converter from ocaml 4.03 -
+   * https://github.com/ocaml/ocaml/blob/trunk/utils/misc.ml#L298 *)
+  module Int_literal_converter = struct
+    let cvt_int_aux str neg of_string =
+      if String.length str = 0 || str.[0] = '-'
+      then of_string str
+      else neg (of_string ("-" ^ str))
+    let int s = cvt_int_aux s (~-) int_of_string
+    let int32 s = cvt_int_aux s Int32.neg Int32.of_string
+    let int64 s = cvt_int_aux s Int64.neg Int64.of_string
+    let nativeint s = cvt_int_aux s Nativeint.neg Nativeint.of_string
+  end
 
-end 
+  let of_constant = function
+    | Asttypes.Const_int32(i) -> Pconst_integer(Int32.to_string i, Some 'l')
+    | Asttypes.Const_int64(i) -> Pconst_integer(Int64.to_string i, Some 'L')
+    | Asttypes.Const_nativeint(i) -> Pconst_integer(Nativeint.to_string i, Some 'n')
+    | Asttypes.Const_int(i) -> Pconst_integer(string_of_int i, None)
+    | Asttypes.Const_char c -> Pconst_char c
+    | Asttypes.Const_string(s, s_opt) -> Pconst_string(s, s_opt)
+    | Asttypes.Const_float f -> Pconst_float(f, None)
+
+  let to_constant = function
+    | Pconst_integer(i,Some 'l') -> Asttypes.Const_int32 (Int_literal_converter.int32 i)
+    | Pconst_integer(i,Some 'L') -> Asttypes.Const_int64 (Int_literal_converter.int64 i)
+    | Pconst_integer(i,Some 'n') -> Asttypes.Const_nativeint (Int_literal_converter.nativeint i)
+    | Pconst_integer(i,None) -> Asttypes.Const_int (Int_literal_converter.int i)
+    | Pconst_integer(i,Some c) -> raise (Unknown_literal (i, c))
+    | Pconst_char c -> Asttypes.Const_char c
+    | Pconst_string(s,d) -> Asttypes.Const_string(s, d)
+    | Pconst_float(f,None) -> Asttypes.Const_float f
+    | Pconst_float(f,Some c) -> raise (Unknown_literal (f, c))
+end
 
 let may_tuple ?loc tup = function
   | [] -> None
@@ -53,12 +88,10 @@ let tuple ?loc ?attrs = function
   | xs -> Exp.tuple ?loc ?attrs xs
 let cons ?loc ?attrs hd tl = constr ?loc ?attrs "::" [hd; tl]
 let list ?loc ?attrs l = List.fold_right (cons ?loc ?attrs) l (nil ?loc ?attrs ())
-let str ?loc ?attrs s = Exp.constant ?loc ?attrs (Pconst_string (s, None))
-let int ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_integer (string_of_int x, None))
-let int32 ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_integer (Int32.to_string x, Some 'l'))
-let int64 ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_integer (Int64.to_string x, Some 'L'))
-let char ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_char x)
-let float ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_float (string_of_float x, None))
+let str ?loc ?attrs s = Exp.constant ?loc ?attrs (Const_string (s, None))
+let int ?loc ?attrs x = Exp.constant ?loc ?attrs (Const_int x)
+let char ?loc ?attrs x = Exp.constant ?loc ?attrs (Const_char x)
+let float ?loc ?attrs x = Exp.constant ?loc ?attrs (Const_float (string_of_float x))
 let record ?loc ?attrs ?over l =
   Exp.record ?loc ?attrs (List.map (fun (s, e) -> (lid ~loc:e.pexp_loc s, e)) l) over
 let func ?loc ?attrs l = Exp.function_ ?loc ?attrs (List.map (fun (p, e) -> Exp.case p e) l)
@@ -85,19 +118,19 @@ let ptuple ?loc ?attrs = function
   | xs -> Pat.tuple ?loc ?attrs xs
 let plist ?loc ?attrs l = List.fold_right (pcons ?loc ?attrs) l (pnil ?loc ?attrs ())
 
-let pstr ?loc ?attrs s = Pat.constant ?loc ?attrs (Pconst_string (s, None))
-let pint ?loc ?attrs x = Pat.constant ?loc ?attrs (Pconst_integer (string_of_int x, None))
-let pchar ?loc ?attrs x = Pat.constant ?loc ?attrs (Pconst_char x)
-let pfloat ?loc ?attrs x = Pat.constant ?loc ?attrs (Pconst_float (string_of_float x, None))
+let pstr ?loc ?attrs s = Pat.constant ?loc ?attrs (Const_string (s, None))
+let pint ?loc ?attrs x = Pat.constant ?loc ?attrs (Const_int x)
+let pchar ?loc ?attrs x = Pat.constant ?loc ?attrs (Const_char x)
+let pfloat ?loc ?attrs x = Pat.constant ?loc ?attrs (Const_float (string_of_float x))
 
 let tconstr ?loc ?attrs c l = Typ.constr ?loc ?attrs (lid ?loc c) l
 
 let get_str = function
-  | {pexp_desc=Pexp_constant (Pconst_string (s, _)); _} -> Some s
+  | {pexp_desc=Pexp_constant (Const_string (s, _)); _} -> Some s
   | _ -> None
 
 let get_str_with_quotation_delimiter = function
-  | {pexp_desc=Pexp_constant (Pconst_string (s, d)); _} -> Some (s, d)
+  | {pexp_desc=Pexp_constant (Const_string (s, d)); _} -> Some (s, d)
   | _ -> None
 
 let get_lid = function

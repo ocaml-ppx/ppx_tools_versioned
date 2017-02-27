@@ -1,3 +1,5 @@
+open Ast_403
+
 (*  This file is part of the ppx_tools package.  It is released  *)
 (*  under the terms of the MIT license (see LICENSE file).       *)
 (*  Copyright 2013  Alain Frisch and LexiFi                      *)
@@ -293,10 +295,6 @@ module E = struct
     | Pexp_letmodule (s, me, e) ->
         letmodule ~loc ~attrs (map_loc sub s) (sub # module_expr me)
           (sub # expr e)
-    | Pexp_letexception (cd, e) ->
-        letexception ~loc ~attrs
-          (sub # extension_constructor cd)
-          (sub # expr e)
     | Pexp_assert e -> assert_ ~loc ~attrs (sub # expr e)
     | Pexp_lazy e -> lazy_ ~loc ~attrs (sub # expr e)
     | Pexp_poly (e, t) ->
@@ -339,7 +337,6 @@ module P = struct
     | Ppat_unpack s -> unpack ~loc ~attrs (map_loc sub s)
     | Ppat_exception p -> exception_ ~loc ~attrs (sub # pat p)
     | Ppat_extension x -> extension ~loc ~attrs (sub # extension x)
-    | Ppat_open (l, p) -> open_ ~loc ~attrs (map_loc sub l) (sub # pat p)
 end
 
 module CE = struct

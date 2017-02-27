@@ -1,3 +1,3 @@
-PKG compiler-libs
+PKG compiler-libs ocaml-migrate-parsetree
 
 FLG -safe-string
