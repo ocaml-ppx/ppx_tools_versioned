@@ -1,15 +1,18 @@
 opam-version: "1.2"
-name: "ppx_tools"
-maintainer: "alain.frisch@lexifi.com"
-authors: [ "Alain Frisch <alain.frisch@lexifi.com>" ]
+name: "ppx_tools_versioned"
+maintainer: "frederic.bour@lakaban.net"
+authors: [ 
+  "Frédéric Bour <frederic.bour@lakaban.net>"
+  "Alain Frisch <alain.frisch@lexifi.com>" 
+]
 license: "MIT"
-homepage: "https://github.com/alainfrisch/ppx_tools"
-bug-reports: "https://github.com/alainfrisch/ppx_tools/issues"
-dev-repo: "git://github.com/alainfrisch/ppx_tools.git"
+homepage: "https://github.com/let-def/ppx_tools_versioned"
+bug-reports: "https://github.com/let-def/ppx_tools_versioned/issues"
+dev-repo: "git://github.com/let-def/ppx_tools_versioned.git"
 tags: [ "syntax" ]
 build: [[make "all"]]
 install: [[make "install"]]
-remove: [["ocamlfind" "remove" "ppx_tools"]]
+remove: [["ocamlfind" "remove" "ppx_tools_versioned"]]
 depends: [
   "ocamlfind" {>= "1.5.0"}
 ]
