@@ -7,7 +7,7 @@
 
 # Don't forget to change META file as well
 PACKAGE = ppx_tools_versioned
-VERSION = 0.1
+VERSION = 5.0
 
 # Config
 include $(shell ocamlc -where)/Makefile.config
