@@ -27,18 +27,18 @@ module Label = struct
 
 end
 
-module Constant = struct
+module Constant = struct 
   type t = Parsetree.constant =
-     Pconst_integer of string * char option
-   | Pconst_char of char
-   | Pconst_string of string * string option
-   | Pconst_float of string * char option
+     Pconst_integer of string * char option 
+   | Pconst_char of char 
+   | Pconst_string of string * string option 
+   | Pconst_float of string * char option 
 
-  let of_constant x = x
+  let of_constant x = x 
 
   let to_constant x = x
 
-end
+end 
 
 let may_tuple ?loc tup = function
   | [] -> None
@@ -57,6 +57,8 @@ let cons ?loc ?attrs hd tl = constr ?loc ?attrs "::" [hd; tl]
 let list ?loc ?attrs l = List.fold_right (cons ?loc ?attrs) l (nil ?loc ?attrs ())
 let str ?loc ?attrs s = Exp.constant ?loc ?attrs (Pconst_string (s, None))
 let int ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_integer (string_of_int x, None))
+let int32 ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_integer (Int32.to_string x, Some 'l'))
+let int64 ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_integer (Int64.to_string x, Some 'L'))
 let char ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_char x)
 let float ?loc ?attrs x = Exp.constant ?loc ?attrs (Pconst_float (string_of_float x, None))
 let record ?loc ?attrs ?over l =
