@@ -89,7 +89,7 @@ ppx_tools_versioned.cmxs: $(OBJECTS:.cmo=.cmx)
 # Metaquot
 
 ppx_metaquot_%: ppx_tools_versioned.cmxa ast_lifter_%.ml ppx_metaquot_%.ml
-	$(OCAMLOPT) -o $@ $(COMPFLAGS) -linkpkg $^
+	$(OCAMLOPT) -o $@ $(COMPFLAGS) -linkpkg $^ -package ocaml-migrate-parsetree.driver-main
 
 .PHONY: depend
 depend:

@@ -1,33 +1,64 @@
-version = "5.0"
+version = "5.0alpha"
 description = "Tools for authors of ppx rewriters and other syntactic tools (with ocaml-migrate-parsetree support)"
 archive(byte) = "ppx_tools_versioned.cma"
 archive(native) = "ppx_tools_versioned.cmxa"
-requires = "compiler-libs.common"
+requires = "ocaml-migrate-parsetree"
 
+package "metaquot_402_lib" (
+  version = "5.0alpha"
+  description = "Meta-quotation: 4.02 parsetree quotation library (for custom drivers)"
+  requires = "ppx_tools_versioned"
+  archive(byte) = "ppx_metaquot_403.cmo"
+  archive(native) = "ppx_metaquot_403.cmx"
+)
+
+package "metaquot_403_lib" (
+  version = "5.0alpha"
+  description = "Meta-quotation: 4.03 parsetree quotation library (for custom drivers)"
+  requires = "ppx_tools_versioned"
+  archive(byte) = "ppx_metaquot_403.cmo"
+  archive(native) = "ppx_metaquot_403.cmx"
+)
+
+package "metaquot_404_lib" (
+  version = "5.0alpha"
+  description = "Meta-quotation: 4.04 parsetree quotation library (for custom drivers)"
+  requires = "ppx_tools_versioned"
+  archive(byte) = "ppx_metaquot_404.cmo"
+  archive(native) = "ppx_metaquot_404.cmx"
+)
+
+package "metaquot_405_lib" (
+  version = "5.0alpha"
+  description = "Meta-quotation: 4.05 parsetree quotation library (for custom drivers)"
+  requires = "ppx_tools_versioned"
+  archive(byte) = "ppx_metaquot_405.cmo"
+  archive(native) = "ppx_metaquot_405.cmx"
+)
 package "metaquot_402" (
-  version = "5.0"
+  version = "5.0alpha"
   description = "Meta-quotation: 4.02 parsetree quotation"
   requires = "ppx_tools_versioned"
-  ppx = "./ppx_metaquot_402"
+  ppx = "./ppx_metaquot_402 --as-ppx"
 )
 
 package "metaquot_403" (
-  version = "5.0"
+  version = "5.0alpha"
   description = "Meta-quotation: 4.03 parsetree quotation"
   requires = "ppx_tools_versioned"
-  ppx = "./ppx_metaquot_403"
+  ppx = "./ppx_metaquot_403 --as-ppx"
 )
 
 package "metaquot_404" (
-  version = "5.0"
+  version = "5.0alpha"
   description = "Meta-quotation: 4.04 parsetree quotation"
   requires = "ppx_tools_versioned"
-  ppx = "./ppx_metaquot_404"
+  ppx = "./ppx_metaquot_404 --as-ppx"
 )
 
 package "metaquot_405" (
-  version = "5.0"
+  version = "5.0alpha"
   description = "Meta-quotation: 4.05 parsetree quotation"
   requires = "ppx_tools_versioned"
-  ppx = "./ppx_metaquot_405"
+  ppx = "./ppx_metaquot_405 --as-ppx"
 )

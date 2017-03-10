@@ -205,7 +205,7 @@ module Main : sig end = struct
     loc := old_loc;
     r
 
-  let expander =
+  let expander _config _cookies =
     let open Ast_mapper in
     let super = default_mapper in
     let expr this e =
@@ -275,12 +275,7 @@ module Main : sig end = struct
     in
     {super with expr; pat; structure; structure_item; signature; signature_item}
 
-  let expander =
-    let open Migrate_parsetree in
-    let module To_current = Convert(OCaml_405)(OCaml_current) in
-    To_current.copy_mapper expander
-
   let () =
-    Migrate_parsetree.Compiler_libs.Ast_mapper.run_main @@
-    fun _args -> expander
+    let open Migrate_parsetree in
+    Driver.register ~name:"metaquot_405" Versions.ocaml_405 expander
 end
