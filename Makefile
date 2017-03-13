@@ -18,7 +18,7 @@ OCAMLC = ocamlfind c -package $(PACKS)
 OCAMLOPT = ocamlfind opt -package $(PACKS)
 COMPFLAGS = -bin-annot -w +A-4-17-44-45-105-42 -safe-string
 
-MODULES = ast_convenience ast_mapper_class ppx_tools
+MODULES = ast_convenience ast_mapper_class ast_lifter ppx_tools
 VERSIONS = 402 403 404 405
 
 # Files
@@ -61,7 +61,7 @@ INSTALL = META \
 	$(wildcard ppx_tools_versioned.*) \
 	$(OBJECTS:.cmo=.cmi) $(wildcard $(OBJECTS:.cmo=.cmx)) \
 	$(wildcard $(OBJECTS:.cmo=.cmt) $(OBJECTS:.cmo=.cmti)) \
-	$(METAQUOTS)
+	$(METAQUOTS) $(wildcard $(METAQUOTS).*)
 
 .PHONY: reinstall install uninstall
 
