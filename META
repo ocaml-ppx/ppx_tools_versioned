@@ -9,8 +9,8 @@ package "metaquot_402" (
   description = "Meta-quotation: 4.02 parsetree quotation"
   requires = "ppx_tools_versioned"
   ppx(-custom_ppx) = "./ppx_metaquot_402 --as-ppx"
-  archive(byte,omp_driver) = "ppx_metaquot_402.cmo"
-  archive(native,omp_driver) = "ppx_metaquot_402.cmx"
+  archive(byte,ppx_driver) = "ppx_metaquot_402.cmo"
+  archive(native,ppx_driver) = "ppx_metaquot_402.cmx"
 )
 
 package "metaquot_403" (
@@ -18,8 +18,8 @@ package "metaquot_403" (
   description = "Meta-quotation: 4.03 parsetree quotation"
   requires = "ppx_tools_versioned"
   ppx(-custom_ppx) = "./ppx_metaquot_403 --as-ppx"
-  archive(byte,omp_driver) = "ppx_metaquot_403.cmo"
-  archive(native,omp_driver) = "ppx_metaquot_403.cmx"
+  archive(byte,ppx_driver) = "ppx_metaquot_403.cmo"
+  archive(native,ppx_driver) = "ppx_metaquot_403.cmx"
 )
 
 package "metaquot_404" (
@@ -27,8 +27,8 @@ package "metaquot_404" (
   description = "Meta-quotation: 4.04 parsetree quotation"
   requires = "ppx_tools_versioned"
   ppx(-custom_ppx) = "./ppx_metaquot_404 --as-ppx"
-  archive(byte,omp_driver) = "ppx_metaquot_404.cmo"
-  archive(native,omp_driver) = "ppx_metaquot_404.cmx"
+  archive(byte,ppx_driver) = "ppx_metaquot_404.cmo"
+  archive(native,ppx_driver) = "ppx_metaquot_404.cmx"
 )
 
 package "metaquot_405" (
@@ -36,6 +36,6 @@ package "metaquot_405" (
   description = "Meta-quotation: 4.05 parsetree quotation"
   requires = "ppx_tools_versioned"
   ppx(-custom_ppx) = "./ppx_metaquot_405 --as-ppx"
-  archive(byte,omp_driver) = "ppx_metaquot_405.cmo"
-  archive(native,omp_driver) = "ppx_metaquot_405.cmx"
+  archive(byte,ppx_driver) = "ppx_metaquot_405.cmo"
+  archive(native,ppx_driver) = "ppx_metaquot_405.cmx"
 )
