@@ -1,4 +1,4 @@
-version = "5.0beta"
+version = "5.0"
 description = "Tools for authors of ppx rewriters and other syntactic tools (with ocaml-migrate-parsetree support)"
 archive(byte) = "ppx_tools_versioned.cma"
 archive(native) = "ppx_tools_versioned.cmxa"
@@ -7,7 +7,7 @@ requires = "ocaml-migrate-parsetree"
 package "metaquot_402" (
   version = "5.0beta"
   description = "Meta-quotation: 4.02 parsetree quotation"
-  requires = "ppx_tools_versioned"
+  requires(ppx_driver) = "ppx_tools_versioned"
   ppx(-custom_ppx,-ppx_driver) = "./ppx_metaquot_402 --as-ppx"
   archive(byte,ppx_driver) = "ppx_metaquot_402.cmo"
   archive(native,ppx_driver) = "ppx_metaquot_402.cmx"
@@ -16,7 +16,7 @@ package "metaquot_402" (
 package "metaquot_403" (
   version = "5.0beta"
   description = "Meta-quotation: 4.03 parsetree quotation"
-  requires = "ppx_tools_versioned"
+  requires(ppx_driver) = "ppx_tools_versioned"
   ppx(-custom_ppx,-ppx_driver) = "./ppx_metaquot_403 --as-ppx"
   archive(byte,ppx_driver) = "ppx_metaquot_403.cmo"
   archive(native,ppx_driver) = "ppx_metaquot_403.cmx"
@@ -25,7 +25,7 @@ package "metaquot_403" (
 package "metaquot_404" (
   version = "5.0beta"
   description = "Meta-quotation: 4.04 parsetree quotation"
-  requires = "ppx_tools_versioned"
+  requires(ppx_driver) = "ppx_tools_versioned"
   ppx(-custom_ppx,-ppx_driver) = "./ppx_metaquot_404 --as-ppx"
   archive(byte,ppx_driver) = "ppx_metaquot_404.cmo"
   archive(native,ppx_driver) = "ppx_metaquot_404.cmx"
@@ -34,7 +34,7 @@ package "metaquot_404" (
 package "metaquot_405" (
   version = "5.0beta"
   description = "Meta-quotation: 4.05 parsetree quotation"
-  requires = "ppx_tools_versioned"
+  requires(ppx_driver) = "ppx_tools_versioned"
   ppx(-custom_ppx,-ppx_driver) = "./ppx_metaquot_405 --as-ppx"
   archive(byte,ppx_driver) = "ppx_metaquot_405.cmo"
   archive(native,ppx_driver) = "ppx_metaquot_405.cmx"
