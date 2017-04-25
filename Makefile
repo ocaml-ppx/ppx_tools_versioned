@@ -22,10 +22,13 @@ MODULES = ast_convenience ast_mapper_class ast_lifter ppx_tools
 VERSIONS = 402 403 404 405
 
 # Files
-OBJECTS= $(foreach version,$(VERSIONS), \
-					 $(foreach module,$(MODULES), $(module)_$(version).cmo))
-
 METAQUOTS= $(foreach version,$(VERSIONS),ppx_metaquot_$(version))
+METAQUOTS_OBJECTS= $(foreach version,$(VERSIONS), \
+									 		$(foreach metaquot,$(METAQUOTS),$(metaquot).cmo))
+OBJECTS= $(foreach version,$(VERSIONS), \
+					 $(foreach module,$(MODULES), $(module)_$(version).cmo)) \
+				 $(METAQUOTS_OBJECTS)
+
 .PHONY: all
 all: ppx_tools_versioned.cma ppx_tools_versioned.cmxa $(METAQUOTS)
 
@@ -59,9 +62,10 @@ clean:
 targets = $(1).mli $(1).cmi $(1).cmt $(1).cmti $(wildcard $(1).cmx)
 INSTALL = META \
 	$(wildcard ppx_tools_versioned.*) \
-	$(OBJECTS:.cmo=.cmi) $(wildcard $(OBJECTS:.cmo=.cmx)) \
+	$(OBJECTS:.cmo=.cmi) \
+	$(wildcard $(OBJECTS:.cmo=.o) $(OBJECTS:.cmo=.cmx)) \
 	$(wildcard $(OBJECTS:.cmo=.cmt) $(OBJECTS:.cmo=.cmti)) \
-	$(METAQUOTS) $(wildcard $(METAQUOTS).*)
+	$(wildcard $(METAQUOTS_OBJECTS)) $(METAQUOTS) 
 
 .PHONY: reinstall install uninstall
 
