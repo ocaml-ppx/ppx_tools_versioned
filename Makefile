@@ -25,9 +25,9 @@ VERSIONS = 402 403 404 405
 METAQUOTS= $(foreach version,$(VERSIONS),ppx_metaquot_$(version))
 METAQUOTS_OBJECTS= $(foreach version,$(VERSIONS), \
 									 		$(foreach metaquot,$(METAQUOTS),$(metaquot).cmo))
-OBJECTS= $(foreach version,$(VERSIONS), \
-					 $(foreach module,$(MODULES), $(module)_$(version).cmo)) \
-				 $(METAQUOTS_OBJECTS)
+OBJECTS=$(foreach version,$(VERSIONS), \
+					 $(foreach module,$(MODULES), $(module)_$(version).cmo))
+ALL_OBJECTS=$(OBJECTS) $(METAQUOTS_OBJECTS)
 
 .PHONY: all
 all: ppx_tools_versioned.cma ppx_tools_versioned.cmxa $(METAQUOTS)
@@ -62,9 +62,9 @@ clean:
 targets = $(1).mli $(1).cmi $(1).cmt $(1).cmti $(wildcard $(1).cmx)
 INSTALL = META \
 	$(wildcard ppx_tools_versioned.*) \
-	$(OBJECTS:.cmo=.cmi) \
-	$(wildcard $(OBJECTS:.cmo=.o) $(OBJECTS:.cmo=.cmx)) \
-	$(wildcard $(OBJECTS:.cmo=.cmt) $(OBJECTS:.cmo=.cmti)) \
+	$(ALL_OBJECTS:.cmo=.cmi) \
+	$(wildcard $(ALL_OBJECTS:.cmo=.o) $(ALL_OBJECTS:.cmo=.cmx)) \
+	$(wildcard $(ALL_OBJECTS:.cmo=.cmt) $(ALL_OBJECTS:.cmo=.cmti)) \
 	$(wildcard $(METAQUOTS_OBJECTS)) $(METAQUOTS) 
 
 .PHONY: reinstall install uninstall
