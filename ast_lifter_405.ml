@@ -1385,7 +1385,7 @@ class virtual ['res] lifter =
          { Lexing.pos_fname = pos_fname; Lexing.pos_lnum = pos_lnum;
            Lexing.pos_bol = pos_bol; Lexing.pos_cnum = pos_cnum }
           ->
-         this#record "Ast_405.Lexing.position"
+         this#record "Lexing.position"
            [("pos_fname", (this#string pos_fname));
            ("pos_lnum", (this#int pos_lnum));
            ("pos_bol", (this#int pos_bol));
