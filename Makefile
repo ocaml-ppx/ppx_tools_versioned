@@ -7,7 +7,7 @@
 
 # Don't forget to change META file as well
 PACKAGE = ppx_tools_versioned
-VERSION = 5.0
+VERSION = 5.1
 
 # Config
 include $(shell ocamlc -where)/Makefile.config
@@ -19,7 +19,7 @@ OCAMLOPT = ocamlfind opt -package $(PACKS)
 COMPFLAGS = -bin-annot -w +A-4-17-44-45-105-42 -safe-string
 
 MODULES = ast_convenience ast_mapper_class ast_lifter ppx_tools
-VERSIONS = 402 403 404 405
+VERSIONS = 402 403 404 405 406
 
 # Files
 METAQUOTS= $(foreach version,$(VERSIONS),ppx_metaquot_$(version))
