@@ -2,7 +2,7 @@
 
 (rule
  (with-stdout-to jbuild.inc.gen
-  (run ocaml ${path:update_jbuild.ml})))
+  (run ocaml ${path:gen/update_jbuild.ml})))
 
 (alias
  ((name runtest)
