@@ -1,2 +1,2 @@
 #use "topfind"
-#require "topkg-jbuilder"
+#require "topkg-jbuilder.auto"
