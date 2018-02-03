@@ -1,3 +1,7 @@
-PKG compiler-libs ocaml-migrate-parsetree
-
-FLG -safe-string
+B _build/default
+FLG -w -40 -w +A-4-17-44-45-105-42 -safe-string -w -40 -w +A-4-17-44-45-105-42 -safe-string -w -40 -w +A-4-17-44-45-105-42 -safe-string -w -40 -w +A-4-17-44-45-105-42 -safe-string -w -40 -w +A-4-17-44-45-105-42 -safe-string -w -40 -w +A-4-17-44-45-105-42 -safe-string
+PKG compiler-libs
+PKG compiler-libs.common
+PKG ocaml-migrate-parsetree
+PKG result
+S .
