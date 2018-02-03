@@ -15,3 +15,6 @@ genlifter
 ppx_metaquot
 rewriter
 ast_lifter.ml
+.gitignore
+*.install
+.merlin
