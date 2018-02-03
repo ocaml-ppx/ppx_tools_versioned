@@ -15,7 +15,7 @@ build: [
 ]
 build-test: [["jbuilder" "runtest" "-p" name "-j" jobs]]
 depends: [
-  "jbuilder" {>= "1.0+beta17"}
+  "jbuilder" {build >= "1.0+beta17"}
   "ocaml-migrate-parsetree" { >= "0.4" }
 ]
 available: ocaml-version >= "4.02.0"
