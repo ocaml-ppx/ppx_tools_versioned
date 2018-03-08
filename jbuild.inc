@@ -4,7 +4,6 @@
   (public_name ppx_tools_versioned)
   (synopsis "Tools for authors of ppx rewriters and other syntactic tools (with ocaml-migrate-parsetree support)")
   (libraries (ocaml-migrate-parsetree))
-  (kind ppx_rewriter)
   (flags ((:standard -w +A-4-17-44-45-105-42 -safe-string)))
   (wrapped false)
   (modules (ast_convenience_402 ast_mapper_class_402 ast_lifter_402 ppx_tools_402
