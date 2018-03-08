@@ -14,6 +14,9 @@ reinstall: uninstall reinstall
 test:
 	jbuilder runtest --dev
 
+promote:
+	jbuilder promote
+
 clean:
 	jbuilder clean
 
