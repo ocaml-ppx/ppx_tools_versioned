@@ -22,7 +22,6 @@ let () =
   (public_name ppx_tools_versioned)
   (synopsis "Tools for authors of ppx rewriters and other syntactic tools (with ocaml-migrate-parsetree support)")
   (libraries (ocaml-migrate-parsetree))
-  (kind ppx_rewriter)
   (flags (%s))
   (wrapped false)
   (modules (%s))))
