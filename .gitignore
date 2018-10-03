@@ -18,3 +18,4 @@ ast_lifter.ml
 .gitignore
 *.install
 .merlin
+_build
