@@ -10,7 +10,7 @@ bug-reports: "https://github.com/let-def/ppx_tools_versioned/issues"
 dev-repo: "git://github.com/let-def/ppx_tools_versioned.git"
 tags: [ "syntax" ]
 build: [
-  ["dune" "subst"] {pinned}
+  # ["dune" "subst"] {pinned}
   ["dune" "build" "-p" name "-j" jobs]
 ]
 build-test: [["dune" "runtest" "-p" name "-j" jobs]]
