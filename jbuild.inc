@@ -10,7 +10,8 @@
 ast_convenience_403 ast_mapper_class_403 ast_lifter_403 ppx_tools_403
 ast_convenience_404 ast_mapper_class_404 ast_lifter_404 ppx_tools_404
 ast_convenience_405 ast_mapper_class_405 ast_lifter_405 ppx_tools_405
-ast_convenience_406 ast_mapper_class_406 ast_lifter_406 ppx_tools_406))))
+ast_convenience_406 ast_mapper_class_406 ast_lifter_406 ppx_tools_406
+ast_convenience_407 ast_mapper_class_407 ast_lifter_407 ppx_tools_407))))
 
 (library
  ((name ppx_tools_versioned_metaquot_402)
@@ -60,4 +61,14 @@ ast_convenience_406 ast_mapper_class_406 ast_lifter_406 ppx_tools_406))))
   (kind ppx_rewriter)
   (wrapped false)
   (modules (ppx_metaquot_406))
+  (flags ((:standard -w +A-4-17-44-45-105-42 -safe-string)))))
+
+(library
+ ((name ppx_tools_versioned_metaquot_407)
+  (public_name ppx_tools_versioned.metaquot_407)
+  (synopsis "Meta-quotation: 4.07 parsetree quotation")
+  (libraries (ocaml-migrate-parsetree ppx_tools_versioned))
+  (kind ppx_rewriter)
+  (wrapped false)
+  (modules (ppx_metaquot_407))
   (flags ((:standard -w +A-4-17-44-45-105-42 -safe-string)))))
