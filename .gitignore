@@ -10,6 +10,7 @@
 *.exe
 *.cmt
 *.cmti
+_build
 dumpast
 genlifter
 ppx_metaquot

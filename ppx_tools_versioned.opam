@@ -19,3 +19,4 @@ depends: [
   "ocaml-migrate-parsetree" { >= "1.0.10" }
 ]
 available: ocaml-version >= "4.02.0"
+synopsis: "A variant of ppx_tools based on ocaml-migrate-parsetree"
