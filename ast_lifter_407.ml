@@ -1,4 +1,4 @@
-open Ast_407
+open Migrate_parsetree.Ast_407
 
 class virtual ['res] lifter =
   object (this)
