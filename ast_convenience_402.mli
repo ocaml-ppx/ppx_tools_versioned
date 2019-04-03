@@ -1,4 +1,4 @@
-open Ast_402
+open Migrate_parsetree.Ast_402
 
 (*  This file is part of the ppx_tools package.  It is released  *)
 (*  under the terms of the MIT license (see LICENSE file).       *)

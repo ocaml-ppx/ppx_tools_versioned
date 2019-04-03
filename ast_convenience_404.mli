@@ -1,4 +1,4 @@
-open Ast_404
+open Migrate_parsetree.Ast_404
 
 (*  This file is part of the ppx_tools package.  It is released  *)
 (*  under the terms of the MIT license (see LICENSE file).       *)
@@ -28,16 +28,16 @@ module Label : sig
 
 end
 
-(** {2 Provides a unified abstraction over differences in Parsetree.constant and Asttypes.constant 
+(** {2 Provides a unified abstraction over differences in Parsetree.constant and Asttypes.constant
  * types defined in ocaml 4.03 and 4.02 respectively}*)
-module Constant : sig 
+module Constant : sig
   type t = Parsetree.constant =
-     Pconst_integer of string * char option 
-   | Pconst_char of char 
-   | Pconst_string of string * string option 
-   | Pconst_float of string * char option 
- 
-  (** Convert Asttypes.constant to Constant.t *) 
+     Pconst_integer of string * char option
+   | Pconst_char of char
+   | Pconst_string of string * string option
+   | Pconst_float of string * char option
+
+  (** Convert Asttypes.constant to Constant.t *)
   val of_constant : Parsetree.constant -> t
 
   (** Convert Constant.t to Asttypes.constant *)
