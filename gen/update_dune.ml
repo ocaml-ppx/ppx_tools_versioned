@@ -18,13 +18,13 @@ let () =
   Printf.printf
     {sexp|
 (library
- ((name ppx_tools_versioned)
-  (public_name ppx_tools_versioned)
-  (synopsis "Tools for authors of ppx rewriters and other syntactic tools (with ocaml-migrate-parsetree support)")
-  (libraries (ocaml-migrate-parsetree))
-  (flags (%s))
-  (wrapped false)
-  (modules (%s))))
+ (name ppx_tools_versioned)
+ (public_name ppx_tools_versioned)
+ (synopsis "Tools for authors of ppx rewriters and other syntactic tools (with ocaml-migrate-parsetree support)")
+ (libraries ocaml-migrate-parsetree)
+ (flags %s)
+ (wrapped false)
+ (modules %s))
 |sexp} flags ppx_tools_versioned_modules
 
 let synopsis_v v =
@@ -35,13 +35,13 @@ let () =
       Printf.printf
         {sexp|
 (library
- ((name ppx_tools_versioned_metaquot_%s)
-  (public_name ppx_tools_versioned.metaquot_%s)
-  (synopsis "Meta-quotation: %s parsetree quotation")
-  (libraries (ocaml-migrate-parsetree ppx_tools_versioned))
-  (kind ppx_rewriter)
-  (wrapped false)
-  (modules (ppx_metaquot_%s))
-  (flags (%s))))
+ (name ppx_tools_versioned_metaquot_%s)
+ (public_name ppx_tools_versioned.metaquot_%s)
+ (synopsis "Meta-quotation: %s parsetree quotation")
+ (libraries ocaml-migrate-parsetree ppx_tools_versioned)
+ (kind ppx_rewriter)
+ (wrapped false)
+ (modules ppx_metaquot_%s)
+ (flags %s))
 |sexp} version version (synopsis_v version) version flags
     ) versions
