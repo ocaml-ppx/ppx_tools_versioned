@@ -1571,18 +1571,18 @@ class virtual ['res] lifter =
       (function
        | false -> this#constr "bool" ("false", [])
        | true -> this#constr "bool" ("true", []) : bool -> 'res)
-    method lift_position : Stdlib.Lexing.position -> 'res=
+    method lift_position : Lexing.position -> 'res=
       (fun
-         { Stdlib.Lexing.pos_fname = pos_fname;
-           Stdlib.Lexing.pos_lnum = pos_lnum;
-           Stdlib.Lexing.pos_bol = pos_bol; Stdlib.Lexing.pos_cnum = pos_cnum
+         { Lexing.pos_fname = pos_fname;
+           Lexing.pos_lnum = pos_lnum;
+           Lexing.pos_bol = pos_bol; Lexing.pos_cnum = pos_cnum
            }
          ->
-         this#record "Stdlib.Lexing.position"
+         this#record "Lexing.position"
            [("pos_fname", (this#string pos_fname));
            ("pos_lnum", (this#int pos_lnum));
            ("pos_bol", (this#int pos_bol));
-           ("pos_cnum", (this#int pos_cnum))] : Stdlib.Lexing.position ->
+           ("pos_cnum", (this#int pos_cnum))] : Lexing.position ->
                                                 'res)
 
     method lift_loc_stack : Location.t list -> 'res =
