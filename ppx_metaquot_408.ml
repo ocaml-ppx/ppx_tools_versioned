@@ -1,4 +1,4 @@
-open Migrate_parsetree.Ast_406
+open Migrate_parsetree.Ast_408
 
 (*  This file is part of the ppx_tools package.  It is released  *)
 (*  under the terms of the MIT license (see LICENSE file).       *)
@@ -65,7 +65,7 @@ module Main : sig end = struct
   open Asttypes
   open Parsetree
   open Ast_helper
-  open Ast_convenience_406
+  open Ast_convenience_408
 
   let prefix ty s =
     let open Longident in
@@ -130,7 +130,7 @@ module Main : sig end = struct
   let exp_lifter loc map =
     let map = map.Ast_mapper.expr map in
     object
-      inherit [_] Ast_lifter_406.lifter as super
+      inherit [_] Ast_lifter_408.lifter as super
       inherit exp_builder
 
       (* Special support for location in the generated AST *)
@@ -171,12 +171,14 @@ module Main : sig end = struct
   let pat_lifter map =
     let map = map.Ast_mapper.pat map in
     object
-      inherit [_] Ast_lifter_406.lifter as super
+      inherit [_] Ast_lifter_408.lifter as super
       inherit pat_builder
 
       (* Special support for location and attributes in the generated AST *)
       method! lift_Location_t _ = Pat.any ()
       method! lift_Parsetree_attributes _ = Pat.any ()
+      method! lift_loc_stack _ = Pat.any ()
+
 
       (* Support for antiquotations *)
       method! lift_Parsetree_expression = function
@@ -195,7 +197,9 @@ module Main : sig end = struct
   let loc = ref (Exp.field (evar "Ast_helper.default_loc") (lid "contents"))
 
   let handle_attr = function
-    | {txt="metaloc";loc=l}, e -> loc := get_exp l e
+    | { attr_name = {txt="metaloc";loc=l}
+      ; attr_payload = e
+      ; attr_loc = _ } -> loc := get_exp l e
     | _ -> ()
 
   let with_loc ?(attrs = []) f =
@@ -277,5 +281,5 @@ module Main : sig end = struct
 
   let () =
     let open Migrate_parsetree in
-    Driver.register ~name:"metaquot_406" Versions.ocaml_406 expander
+    Driver.register ~name:"metaquot_408" Versions.ocaml_408 expander
 end

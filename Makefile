@@ -21,6 +21,6 @@ clean:
 	dune clean
 
 all-supported-ocaml-versions:
-	dune runtest --workspace dune-workspace.dev
+	dune build @default @runtest --workspace dune-workspace.dev
 
 .PHONY: all-supported-ocaml-versions all install uninstall reinstall test clean
