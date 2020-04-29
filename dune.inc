@@ -14,7 +14,8 @@ ast_convenience_406 ast_mapper_class_406 ast_lifter_406 ppx_tools_406
 ast_convenience_407 ast_mapper_class_407 ast_lifter_407 ppx_tools_407
 ast_convenience_408 ast_mapper_class_408 ast_lifter_408 ppx_tools_408
 ast_convenience_409 ast_mapper_class_409 ast_lifter_409 ppx_tools_409
-ast_convenience_410 ast_mapper_class_410 ast_lifter_410 ppx_tools_410))
+ast_convenience_410 ast_mapper_class_410 ast_lifter_410 ppx_tools_410
+ast_convenience_411 ast_mapper_class_411 ast_lifter_411 ppx_tools_411))
 
 (library
  (name ppx_tools_versioned_metaquot_402)
@@ -104,4 +105,14 @@ ast_convenience_410 ast_mapper_class_410 ast_lifter_410 ppx_tools_410))
  (kind ppx_rewriter)
  (wrapped false)
  (modules ppx_metaquot_410)
+ (flags (:standard -w +A-4-17-44-45-105-42 -safe-string)))
+
+(library
+ (name ppx_tools_versioned_metaquot_411)
+ (public_name ppx_tools_versioned.metaquot_411)
+ (synopsis "Meta-quotation: 4.11 parsetree quotation")
+ (libraries ocaml-migrate-parsetree ppx_tools_versioned)
+ (kind ppx_rewriter)
+ (wrapped false)
+ (modules ppx_metaquot_411)
  (flags (:standard -w +A-4-17-44-45-105-42 -safe-string)))
