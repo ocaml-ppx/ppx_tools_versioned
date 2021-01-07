@@ -45,7 +45,7 @@ let may_tuple ?loc tup = function
   | [x] -> Some x
   | l -> Some (tup ?loc ?attrs:None l)
 
-let lid ?(loc = !default_loc) s = mkloc (Longident.parse s) loc
+let lid ?(loc = !default_loc) s = mkloc (Longident.unflatten s) loc
 let constr ?loc ?attrs s args = Exp.construct ?loc ?attrs (lid ?loc s) (may_tuple ?loc Exp.tuple args)
 let nil ?loc ?attrs () = constr ?loc ?attrs "[]" []
 let unit ?loc ?attrs () = constr ?loc ?attrs "()" []
